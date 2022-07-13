@@ -1,0 +1,16 @@
+#This Dockerfile helps us in installing aws cli and using docker inside container
+FROM jenkins/jenkins:lts
+USER root
+# Set timezone
+
+RUN apt-get -y update
+
+# Install useful tools
+RUN apt-get -y install nano wget ntp  git curl  libcurl4 libcurl4-openssl-dev zip unzip jq
+
+# Install AWS Cli:
+#   https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+USER jenkins
