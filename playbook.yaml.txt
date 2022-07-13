@@ -1,0 +1,29 @@
+-   name: Install Docker
+    hosts: all
+    become: true
+    tasks:
+      - name: Install prerequisites
+        apt:
+          pkg:
+            - curl
+            - gnupg
+            - ca-certificates
+            - lsb-release
+      - name: Add docker gpg apt key
+        apt_key:
+          url: https://download.docker.com/linux/ubuntu/gpg
+          state: present
+      - name: Add Docker repo
+        apt_repository:
+          repo: deb https://download.docker.com/linux/ubuntu focal stable
+          state: present
+      - name: Update apt and install docker ce
+        apt:
+          name: docker-ce
+          state: latest
+          update_cache: true
+~
+~
+~
+~
+~
